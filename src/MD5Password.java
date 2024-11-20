@@ -1,3 +1,4 @@
+import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Objects;
 
@@ -46,7 +47,8 @@ public class MD5Password implements Password {
             return false;
         }
         MD5Password that = (MD5Password) o;
-        return Objects.equals(hashValue, that.hashValue) && Objects.equals(salt, that.salt);
+        return MessageDigest.isEqual(hashValue.getBytes(), that.hashValue.getBytes()) &&
+            MessageDigest.isEqual(salt.getBytes(), that.salt.getBytes());
     }
 
     @Override

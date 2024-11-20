@@ -1,3 +1,4 @@
+import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.util.Objects;
@@ -48,8 +49,9 @@ public class PBKDBFPassword implements Password {
             return false;
         }
         PBKDBFPassword that = (PBKDBFPassword) o;
-        return iterations == that.iterations && Objects.equals(hashValue, that.hashValue) && Objects.equals(salt,
-            that.salt);
+        return iterations == that.iterations &&
+            MessageDigest.isEqual(hashValue.getBytes(), that.hashValue.getBytes()) &&
+            MessageDigest.isEqual(salt.getBytes(), that.salt.getBytes());
     }
 
     @Override
