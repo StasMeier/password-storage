@@ -19,16 +19,6 @@ public class VerifyPassword {
             .map(line -> PasswordFactory.builder().ofLine(line))
             .toList();
 
-        if(passwords.getFirst().isInsecure()) {
-            System.err.println("Algorithm is not secure anymore. We use stronger hashing algorithm");
-
-            String generatedSecuredPasswordHash
-                = PasswordFactory.builder().generate(Algorithm.PBKDF2, originalPassword).toString();
-            PrintWriter pw = new PrintWriter("psw.csv");
-            pw.println(generatedSecuredPasswordHash);
-            pw.close();
-        }
-
         boolean matched = passwords.getFirst().matches(originalPassword);
         if(passwords.getFirst().isInsecure() && matched) {
             System.err.println("Algorithm is not secure anymore. We use stronger hashing algorithm");

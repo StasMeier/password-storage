@@ -17,7 +17,7 @@ public class PasswordFactory {
     public Password generate(Algorithm algorithm, String password) throws Exception {
         switch (algorithm) {
             case PBKDF2 -> {
-                return createPBKDBFPassword(password, 1000, getSalt());
+                return createPBKDBFPassword(password, 600000, getSalt());
             }
             case MD5 -> {
                 return createMD5Password(password, getSalt());
